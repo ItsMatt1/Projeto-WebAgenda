@@ -1,4 +1,4 @@
-package com.WebAgenda.WebAgenda;
+package com.WebAgenda.WebAgenda.Model;
 
 public enum Sexo {
     MASCULINO, FEMININO;

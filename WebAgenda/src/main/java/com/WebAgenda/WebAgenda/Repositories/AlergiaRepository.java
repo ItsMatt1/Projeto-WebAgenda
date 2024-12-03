@@ -1,6 +1,6 @@
 package com.WebAgenda.WebAgenda.Repositories;
 
-import com.WebAgenda.WebAgenda.Alergia;
+import com.WebAgenda.WebAgenda.Model.Alergia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.WebAgenda.WebAgenda.Controllers;
 
-import com.WebAgenda.WebAgenda.Vacina;
+import com.WebAgenda.WebAgenda.Model.Vacina;
 import com.WebAgenda.WebAgenda.Repositories.VacinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,5 +21,10 @@ public class VacinaController {
     @GetMapping
     public List<Vacina> listarVacinas() {
         return vacinaRepository.findAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletarVacina(@PathVariable Integer id) {
+        vacinaRepository.deleteById(id);
     }
 }
