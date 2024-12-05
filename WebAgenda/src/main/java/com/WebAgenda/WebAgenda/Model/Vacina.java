@@ -70,6 +70,4 @@ public class Vacina {
     public void setIntervalo(int intervalo) {
         this.intervalo = intervalo;
     }
-
-    // Getters e Setters
 }
