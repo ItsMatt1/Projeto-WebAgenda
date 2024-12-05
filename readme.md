@@ -1,4 +1,3 @@
-```markdown
 # WebAgenda
 
 ## Descrição
@@ -29,7 +28,6 @@ Antes de configurar o projeto, certifique-se de ter os seguintes softwares insta
 ```bash
 git clone https://github.com/username/WebAgenda.git
 cd WebAgenda
-```
 
 ### 2. Configure o Banco de Dados MySQL:
 1. Inicie o servidor MySQL.  
