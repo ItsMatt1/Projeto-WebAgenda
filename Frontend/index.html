@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendamento de Vacinas</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">Sistema de Agendamento de Vacinas</h1>
+
+      <!-- Navegação -->
+      <ul class="nav nav-tabs mb-4" id="tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#usuarios" data-bs-toggle="tab"
+            >Usuários</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#alergias" data-bs-toggle="tab">Alergias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#vacinas" data-bs-toggle="tab">Vacinas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#agendas" data-bs-toggle="tab">Agendas</a>
+        </li>
+      </ul>
+
+      <!-- Conteúdo -->
+      <div class="tab-content">
+        <!-- Usuários -->
+        <div class="tab-pane fade show active" id="usuarios">
+          <h2>Cadastro de Usuários</h2>
+          <form id="usuarioForm" class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label for="usuarioNome" class="form-label">Nome</label>
+              <input
+                type="text"
+                id="usuarioNome"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="usuarioNascimento" class="form-label"
+                >Data de Nascimento</label
+              >
+              <input
+                type="date"
+                id="usuarioNascimento"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="usuarioSexo" class="form-label">Sexo</label>
+              <select id="usuarioSexo" class="form-select">
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="usuarioUF" class="form-label">UF</label>
+              <select id="usuarioUF" class="form-select">
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AM">AM</option>
+                <option value="AP">AP</option>
+                <!-- Outras siglas de estados -->
+                <option value="SP">SP</option>
+                <option value="RJ">RJ</option>
+                <option value="DF">DF</option>
+              </select>
+            </div>
+            <div class="col-md-12">
+              <label for="usuarioAlergias" class="form-label">Alergias</label>
+              <select id="usuarioAlergias" class="form-select" multiple>
+                <!-- Alergias adicionadas dinamicamente -->
+              </select>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">
+                Cadastrar Usuário
+              </button>
+            </div>
+          </form>
+          <h3>Listagem de Usuários</h3>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Sexo</th>
+                  <th>UF</th>
+                  <th>Data de nascimento</th>
+                  <th>Alergias</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="usuarioTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Alergias -->
+        <div class="tab-pane fade" id="alergias">
+          <h2>Cadastro de Alergias</h2>
+          <form id="alergiaForm" class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label for="alergiaNome" class="form-label">Nome</label>
+              <input
+                type="text"
+                id="alergiaNome"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">
+                Cadastrar Alergia
+              </button>
+            </div>
+          </form>
+          <h3>Listagem de Alergias</h3>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="alergiaTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Vacinas -->
+        <div class="tab-pane fade" id="vacinas">
+          <h2>Cadastro de Vacinas</h2>
+          <form id="vacinaForm" class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label for="vacinaNome" class="form-label">Nome</label>
+              <input
+                type="text"
+                id="vacinaNome"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-md-3">
+              <label for="vacinaDoses" class="form-label">Doses</label>
+              <input
+                type="number"
+                id="vacinaDoses"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-md-3">
+              <label for="vacinaIntervalo" class="form-label">Intervalo</label>
+              <input
+                type="number"
+                id="vacinaIntervalo"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="vacinaPeriodicidade" class="form-label"
+                >Periodicidade</label
+              >
+              <select id="vacinaPeriodicidade" class="form-select">
+                <option value="1">Dias</option>
+                <option value="2">Semanas</option>
+                <option value="3">Meses</option>
+                <option value="4">Anos</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">
+                Cadastrar Vacina
+              </button>
+            </div>
+          </form>
+          <h3>Listagem de Vacinas</h3>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Doses</th>
+                  <th>Intervalo</th>
+                  <th>Periodicidade</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="vacinaTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Agendas -->
+        <div class="tab-pane fade" id="agendas">
+          <h2>Agendamento</h2>
+          <form id="agendaForm" class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label for="agendaUsuario" class="form-label">Usuário</label>
+              <select id="agendaUsuario" class="form-select">
+                <!-- Usuários adicionados dinamicamente -->
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="agendaVacina" class="form-label">Vacina</label>
+              <select id="agendaVacina" class="form-select">
+                <!-- Vacinas adicionadas dinamicamente -->
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="agendaData" class="form-label">Data</label>
+              <input
+                type="date"
+                id="agendaData"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Agendar</button>
+            </div>
+          </form>
+          <h3>Listagem de Agendas</h3>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Usuário</th>
+                  <th>Vacina</th>
+                  <th>Data</th>
+                  <th>Situação</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="agendaTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
