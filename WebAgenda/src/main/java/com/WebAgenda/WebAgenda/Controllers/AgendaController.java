@@ -65,10 +65,14 @@ public class AgendaController {
     }
 
     @PutMapping("/{id}/baixa")
-    public Agenda darBaixa(@PathVariable Integer id, @RequestParam Situacao situacao) {
-        Agenda agenda = agendaRepository.findById(id).orElseThrow(() -> new RuntimeException("Agenda não encontrada"));
-        agenda.setSituacao(situacao);
-        agenda.setDataSituacao(new Date(0));
+    public Agenda darBaixa(@PathVariable Integer id, @RequestParam Integer situacao) {
+        Agenda agenda = agendaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agenda não encontrada"));
+
+        Situacao situacaoEnum = Situacao.fromInteger(situacao); // Convert integer to enum
+        agenda.setSituacao(situacaoEnum);
+        agenda.setDataSituacao(new Date(System.currentTimeMillis()));
+
         return agendaRepository.save(agenda);
     }
 
