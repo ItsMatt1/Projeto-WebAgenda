@@ -80,4 +80,42 @@ public class AgendaController {
     public List<Agenda> buscarPorSituacao(@RequestParam Situacao situacao) {
         return agendaService.buscarPorSituacao(situacao);
     }
+
+    @GetMapping("/filtrar")
+    public List<Agenda> listarAgendasPorSituacao(@RequestParam(required = false) Integer situacao) {
+        if (situacao == null) {
+            return agendaRepository.findAll(); // Caso não informe a situação, retorna todas as agendas
+        }
+        return agendaRepository.findBySituacao(Situacao.fromInteger(situacao)); // Retorna agendas com a situação especificada
+    }
+
+    @GetMapping("/hoje")
+    public List<Agenda> listarAgendasDoDia() {
+        Date dataCorrente = new Date(System.currentTimeMillis());
+        return agendaRepository.findAgendasDoDiaOrdenadas(dataCorrente);
+    }
+
+    @GetMapping("/findByUser/{usuarioId}")
+    public ResponseEntity<List<Agenda>> listarAgendamentosPorUsuario(@PathVariable Integer usuarioId) {
+        List<Agenda> agendas = agendaRepository.findByUsuarioId(usuarioId);
+
+        if (agendas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        List<Agenda> agendamentos = agendas.stream()
+                .map(agenda -> {
+                    Agenda novaAgenda = new Agenda();
+                        novaAgenda.setData(agenda.getData());
+                        novaAgenda.setUsuario(agenda.getUsuario());
+                        novaAgenda.setSituacao(agenda.getSituacao());
+                        novaAgenda.setVacina(agenda.getVacina());
+
+                        return novaAgenda;
+                })
+                .toList();
+
+        return ResponseEntity.ok(agendamentos);
+    }
+
 }
