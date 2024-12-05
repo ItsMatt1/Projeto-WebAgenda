@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${usuario.nome}</td>
           <td>${usuario.sexo}</td>
           <td>${usuario.uf}</td>
-          <td>${usuario.dataNascimento.split("-").reverse().join("/")}</td>
-          <td>${usuario.alergias.map((alergia) => alergia.nome).join(", ")}</td>
+          <td>${usuario.dataNascimento?.split("-").reverse().join("/")}</td>
+          <td>${usuario.alergias?.map((alergia) => alergia.nome).join(", ")}</td>
           <td>
               <button class="btn btn-danger btn-sm" onclick="excluirUsuario(${index})">Excluir</button>
           </td>
@@ -90,9 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${agenda?.data}</td>
           <td>${agenda?.situacao}</td>
           <td>
-              <button class="btn btn-success btn-sm" onclick="darBaixaAgenda(${index}, 'Realizado')">Realizar</button>
-              <button class="btn btn-warning btn-sm" onclick="darBaixaAgenda(${index}, 'Cancelado')">Cancelar</button>
-              <button class="btn btn-danger btn-sm" onclick="excluirAgenda(${index})">Excluir</button>
+              <button class="btn btn-success btn-sm" onclick="darBaixaAgenda(${agenda?.id}, 2)">Realizar</button>
+              <button class="btn btn-warning btn-sm" onclick="darBaixaAgenda(${agenda?.id}, 1)">Cancelar</button>
+              <button class="btn btn-danger btn-sm" onclick="excluirAgenda(${agenda?.id})">Excluir</button>
           </td>
       </tr>
   `;
@@ -114,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       vacinas = vacinasRes;
       agendas = agendasRes;
 
+      console.log({usuarios});
       // Renderizando as tabelas
       renderizarLista(usuarios, usuarioTableBody, renderUsuario);
       renderizarLista(alergias, alergiaTableBody, renderAlergia);
@@ -157,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dataNascimento,
       sexo: sexo.toUpperCase(),
       uf,
-      alergias: alergiasObj,
+      alergias: alergiasObj.map(a => ({id: a.id})),
     };
 
     try {
@@ -268,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
           usuario_id: Number(usuario),
           vacina_id: Number(vacina),
           data: novaData.toISOString().split("T")[0],
-          situacao: "AGENDADO",
+          situacao: 0,
         };
 
         try {
@@ -297,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Função de exclusão
   window.excluirUsuario = async (index) => {
     try {
-      const usuarioId = usuarios[index].id; // Supondo que cada usuário tenha um campo `id`
+      const usuarioId = usuarios[index].id;
       const res = await fetch(`http://localhost:8080/usuarios/${usuarioId}`, {
         method: "DELETE",
       });
@@ -354,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.excluirAgenda = async (index) => {
     try {
-      const agendaId = agendas[index].id;
+      const agendaId = index;
       const res = await fetch(`http://localhost:8080/agendas/${agendaId}`, {
         method: "DELETE",
       });
@@ -374,13 +375,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Função para dar baixa em agenda (realizado ou cancelado)
   window.darBaixaAgenda = async (index, situacao) => {
     try {
-      const agendaId = agendas[index].id;
-      const res = await fetch(`http://localhost:8080/agendas/${agendaId}`, {
-        method: "PATCH",
+      const agendaId = index;
+      const res = await fetch(`http://localhost:8080/agendas/${agendaId}/baixa?situacao=${situacao}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ situacao }),
       });
 
       if (res.ok) {
