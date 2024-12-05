@@ -28,7 +28,7 @@ Antes de configurar o projeto, certifique-se de ter os seguintes softwares insta
 ```bash
 git clone https://github.com/username/WebAgenda.git
 cd WebAgenda
-
+```
 ### 2. Configure o Banco de Dados MySQL:
 1. Inicie o servidor MySQL.  
 2. Crie um banco de dados chamado `WebAgenda`:
@@ -57,21 +57,30 @@ cd WebAgenda
 ### 4. Rodar o Projeto:
 - Execute a classe principal `WebAgendaApplication.java` na sua IDE.  
 - O servidor será iniciado em [http://localhost:8080](http://localhost:8080).
+- Depois basta abrir a pasta Frontend/index.html e clicar duas vezes para abrir no seu navegador.
 
 ## Estrutura do Projeto
 
 ```
-WebAgenda/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com.example.webagenda/   # Código fonte principal
-│   │   └── resources/
-│   │       ├── application.properties  # Configurações do Spring
-│   │       └── static/                 # Recursos estáticos
-│   └── test/                           # Testes unitários
-├── pom.xml                             # Configuração Maven
-└── README.md                           # Documentação
+PROJETO-WEBAGENDA
+├── Frontend/
+│   ├── css/                  # Arquivos de estilo
+│   ├── js/                   # Scripts JavaScript
+│   │   └── main.js           # Lógica do Frontend
+│   └── index.html            # Arquivo principal para iniciar o Frontend
+│                             # *Para iniciar o Frontend, clique duas vezes no index.html*
+├── WebAgenda/                # Diretório do Backend (Spring Boot)
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── com.example.webagenda/  # Código fonte principal do Backend
+│   │   │   └── resources/
+│   │   │       ├── application.properties  # Configurações do Spring
+│   │   │       └── static/                 # Arquivos estáticos (opcional)
+│   │   └── test/                           # Testes unitários
+│   ├── pom.xml                             # Configurações do Maven
+│   ├── README.md                           # Documentação do projeto
+│   └── target/                             # Arquivos compilados
 ```
 
 ## Configurações Avançadas
@@ -86,4 +95,10 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
 Você pode ajustar essas configurações conforme necessário.
 
-```
+
+## Participantes
+Christopher Star Correa de Oliveira: Front-End.
+
+Matheus de Moura Rosa: Back-End.
+
+Pedro Henrique Chaves Junqueira: Database, PDF e Vídeo.
