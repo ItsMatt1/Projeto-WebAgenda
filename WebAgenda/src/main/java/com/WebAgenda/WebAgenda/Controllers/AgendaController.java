@@ -118,4 +118,9 @@ public class AgendaController {
         return ResponseEntity.ok(agendamentos);
     }
 
+    // Deletar uma agenda
+    @DeleteMapping("/{id}")
+    public void deletarAgenda(@PathVariable Integer id) {
+        agendaRepository.deleteById(id);
+    }
 }
