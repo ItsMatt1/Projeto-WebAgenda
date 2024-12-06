@@ -42,7 +42,7 @@ cd WebAgenda
    spring.datasource.password=Matheus03216!sql
    ```
 
-> ⚠️ **Atenção:** Para maior segurança, não deixe credenciais sensíveis no repositório. Utilize variáveis de ambiente ou ferramentas como `Spring Config Server`.
+> ⚠️ **Atenção:** no meu caso minha senha é essa, mas é necessário trocar para a sua password.
 
 ### 3. Importação do Projeto:
 - **IntelliJ IDEA**  
