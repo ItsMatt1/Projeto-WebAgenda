@@ -24,4 +24,5 @@ public interface AgendaRepository extends JpaRepository<Agenda, Integer> {
 
     List<Agenda> findByUsuarioId(Integer usuarioId);
 
+    long countBySituacao(Situacao situacao);
 }

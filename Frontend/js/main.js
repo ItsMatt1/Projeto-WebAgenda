@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       vacinas = vacinasRes;
       agendas = agendasRes;
 
-      console.log({usuarios});
+      console.log({agendas});
       // Renderizando as tabelas
       renderizarLista(usuarios, usuarioTableBody, renderUsuario);
       renderizarLista(alergias, alergiaTableBody, renderAlergia);
@@ -273,6 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
+          console.log({novaAgenda})
           const res = await fetch("http://localhost:8080/agendas", {
             method: "POST",
             headers: {
@@ -337,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.excluirVacina = async (index) => {
     try {
       const vacina = vacinas[index];
-      const res = await fetch(`http://localhost:8080/vacinas/${vacina.nome}`, {
+      const res = await fetch(`http://localhost:8080/vacinas/${vacina.id}`, {
         method: "DELETE",
       });
 
@@ -384,9 +385,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (res.ok) {
-        agendas[index].situacao = situacao; // Atualiza a situação da agenda localmente
-        renderizarLista(agendas, agendaTableBody, renderAgenda);
+        // agendas[index].situacao = situacao; // Atualiza a situação da agenda localmente
         carregarDados();
+        renderizarLista(agendas, agendaTableBody, renderAgenda);
       } else {
         console.error("Erro ao dar baixa na agenda");
       }
@@ -394,4 +395,34 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Erro de conexão:", error);
     }
   };
+
+  // Função para atualizar os dados do relatório
+  async function atualizarRelatorio() {
+    try {
+      const response = await fetch("http://localhost:8080/relatorio/estatisticas");
+      if (!response.ok) throw new Error("Erro ao buscar estatísticas");
+  
+      const data = await response.json();
+  
+      // Atualizar os valores no front-end
+      document.getElementById("totalUsuarios").textContent = data.totalUsuarios;
+      document.getElementById("totalVacinas").textContent = data.totalVacinas;
+      document.getElementById("agendasRealizadas").textContent =
+        data.totalAgendasRealizadas;
+      document.getElementById("agendasCanceladas").textContent =
+        data.totalAgendasCanceladas;
+      document.getElementById("agendasPendentes").textContent =
+        data.totalAgendasAgendadas;
+      document.getElementById("percentualRealizadas").textContent =
+        data.percentualRealizadas.toFixed(2); // Mostra com duas casas decimais
+    } catch (error) {
+      console.error("Erro ao carregar estatísticas:", error);
+      alert("Não foi possível carregar as estatísticas. Tente novamente mais tarde.");
+    }
+  }
+
+  // Atualiza o relatório ao carregar a aba
+  document
+    .querySelector('[href="#relatorio"]')
+    .addEventListener("shown.bs.tab", atualizarRelatorio);
 });

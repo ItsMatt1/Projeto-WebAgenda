@@ -14,8 +14,8 @@ public class Alergia {
     @Column(nullable = false, length = 40)
     private String nome;
 
-    @ManyToMany(mappedBy = "alergias")
-    private List<Usuario> usuarios = new ArrayList<>();
+//    @ManyToMany(mappedBy = "alergias")
+//    private List<Usuario> usuarios = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -33,12 +33,11 @@ public class Alergia {
         this.nome = nome;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-// Getters e Setters
+//    public List<Usuario> getUsuarios() {
+//        return usuarios;
+//    }
+//
+//    public void setUsuarios(List<Usuario> usuarios) {
+//        this.usuarios = usuarios;
+//    }
 }

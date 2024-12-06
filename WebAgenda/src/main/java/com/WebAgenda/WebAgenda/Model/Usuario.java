@@ -8,10 +8,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
 @Entity
 public class Usuario {
     @Id
@@ -31,8 +31,8 @@ public class Usuario {
     @Column(nullable = false, length = 2)
     private String uf;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Agenda> agendas = new ArrayList<>();
+//    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+//    private List<Agenda> agendas = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -82,13 +82,13 @@ public class Usuario {
         this.uf = uf;
     }
 
-    public List<Agenda> getAgendas() {
-        return agendas;
-    }
-
-    public void setAgendas(List<Agenda> agendas) {
-        this.agendas = agendas;
-    }
+//    public List<Agenda> getAgendas() {
+//        return agendas;
+//    }
+//
+//    public void setAgendas(List<Agenda> agendas) {
+//        this.agendas = agendas;
+//    }
 
     public List<Alergia> getAlergias() {
         return alergias;
@@ -97,7 +97,5 @@ public class Usuario {
     public void setAlergias(List<Alergia> alergias) {
         this.alergias = alergias;
     }
-
-    // Getters e Setters
 }
 
